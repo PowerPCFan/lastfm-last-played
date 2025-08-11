@@ -2,7 +2,7 @@ import os
 import dotenv
 import requests
 from modules.logger import logger
-from typing import Literal, Any
+from typing import Any
 from flask import jsonify, request, Response
 
 dotenv.load_dotenv()
@@ -17,7 +17,7 @@ def _handle_error(error_type: str, message: str, status_code: int, exception: Ex
     return jsonify({"message": error_type}), status_code
 
 
-def _validate_api_key() -> tuple[str | None, tuple[Response, Literal[500]] | None]:
+def _validate_api_key() -> tuple[str | None, tuple[Response, int] | None]:
     api_key = os.getenv('LASTFM_API_KEY')
     if not api_key:
         error_response = _handle_error(
